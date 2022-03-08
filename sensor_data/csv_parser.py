@@ -2,12 +2,14 @@
 We're parsing dataset.csv as part of a pre-processing operation step
 where we filter in only the necessary sensor data we require for 
 the monitoring system
+
+Code sample from StackOverflow
 """
 import csv
 
 dataset_name='dataset.csv'
 output_prefix='dataset-'
-vehicle_sensors = ['Fuel_Consumption', 'Engine_speed', 'Engine_Coolant_Temperature', 'Current_Gear', 'Vehicle_speed']
+vehicle_sensors = ['Fuel_consumption', 'Engine_speed', 'Engine_coolant_temperature', 'Current_Gear', 'Vehicle_speed']
 
 with open(dataset_name, 'r') as f:
     reader = csv.DictReader(f)
@@ -18,7 +20,7 @@ with open(dataset_name, 'r') as f:
 print(columns)
 
 for col in columns:
-    fname = output_prefix+col+'.txt'
+    fname = col+'.txt'
     print('Writing to ', fname)
     with open(fname, 'w', newline='') as f:
         writer = csv.writer(f)
