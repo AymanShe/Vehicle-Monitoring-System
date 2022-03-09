@@ -7,8 +7,8 @@
     Description: Shared memory interface for the Vehicle Monitoring system
     which allows read and writting to the shared memory
 */
-#ifndef SHARED_MEMORY_HPP
-#define SHARED_MEMORY_HPP
+#ifndef SHARED_MEMORY_HPP_
+#define SHARED_MEMORY_HPP_
 
 #include <iostream>
 #include <stdlib.h>
@@ -31,4 +31,4 @@ public:
     int read(int);
     int write(int, int);
 };
-#endif // SHARED_MEMORY_HPP
+#endif // SHARED_MEMORY_HPP_

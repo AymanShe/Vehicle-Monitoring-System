@@ -9,15 +9,15 @@
     with the current time t's sensor value(i.e.: V[t] = sensor_value)
     This will facilitate the interface between the sensor data and the shared memory
 */
-#ifndef PRODUCER_HPP
-#define PRODUCER_HPP
+#ifndef PRODUCER_HPP_
+#define PRODUCER_HPP_
 
 #include <iostream>
 #include <string>
 #include <vector>
 #include <fstream>
 #include "shared_mem.hpp"
-//#include "timer.hpp"
+#include "timer.hpp"
 
 using namespace std;
 
@@ -46,4 +46,4 @@ private:
     vector<float> sensorData;
 };
 
-#endif // PRODUCER_HPP
+#endif // PRODUCER_HPP_

@@ -7,16 +7,16 @@
     Description: Reads from shared memory and displays the sensor data
     according to the elapsed time t
 */
-#ifndef CONSUMER_HPP
-#define CONSUMER_HPP
+#ifndef CONSUMER_HPP_
+#define CONSUMER_HPP_
 
 #include <iostream>
 #include <string>
 #include "shared_mem.hpp"
-//#include "timer.hpp"
+#include "timer.hpp"
 
 using namespace std;
 
 void terminalGUI();
 
-#endif // CONSUMER_HPP
+#endif // CONSUMER_HPP_
