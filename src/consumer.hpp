@@ -12,7 +12,7 @@
 
 #include <iostream>
 #include <string>
-//#include "shared_mem.hpp"
+#include "shared_mem.hpp"
 //#include "timer.hpp"
 
 using namespace std;

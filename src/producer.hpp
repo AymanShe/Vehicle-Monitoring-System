@@ -16,19 +16,13 @@
 #include <string>
 #include <vector>
 #include <fstream>
-//#include "shared_mem.hpp"
+#include "shared_mem.hpp"
 //#include "timer.hpp"
 
 using namespace std;
 
 class Producer
 {
-
-private:
-    string sensor_file_name = "";
-    int task_num = 0;
-    int period = 0;
-    vector<float> sensorData;
 
 public:
     Producer(string, int, int);
@@ -44,6 +38,12 @@ public:
     bool loadSensorData();
 
     void run();
+
+private:
+    string sensor_file_name = "";
+    int task_num = 0;
+    int period = 0;
+    vector<float> sensorData;
 };
 
 #endif // PRODUCER_HPP

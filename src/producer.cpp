@@ -48,9 +48,7 @@ int Producer::getPeriod()
     return period;
 }
 
-/*
-    Loads sensor values from .txt file into an array
-*/
+/* Loads sensor values from .txt file into an array */
 bool Producer::loadSensorData()
 {
     ifstream fs;
@@ -81,24 +79,29 @@ bool Producer::loadSensorData()
     {
 #ifdef DEBUG
         cout << sensor_file_name << " is loaded!" << endl;
+        cout << "Size of array: " << array_size << endl;
 #endif
-
         return true;
     }
 
     return false;
 }
 
+/*
+    Once we run a thread, we will continually write the sensor date to our
+    task number's shared memory address. The task will wake up after
+    its time period has elapsed.
+*/
 void Producer::run()
 {
     int time;
-    float data;
+    int data;
+    int task_num_addr = getTaskNumber();
     int period = getPeriod();
     int array_size = sensorData.size() - 1;
 
 #ifdef DEBUG
-    cout << "Producer running" << endl;
-    cout << "Size of array: " << array_size << endl;
+    cout << "Producer Thread " << getTaskNumber() << " running" << endl;
 #endif
 
     for (int i = 0; i < array_size; i += period)
@@ -106,10 +109,10 @@ void Producer::run()
         /* TODO: must fetch time and period from shared memory*/
         // time = current_time()
         data = sensorData[time];
-        // write_to_shared_mem(loc, data)
+        SharedMemory::write(task_num_addr, data);
 #ifdef DEBUG
-        cout << "Time: "
-             << "Data: " << endl;
+        cout << "Time: " << time << endl;
+        cout << "Data: " << SharedMemory::read(task_num_addr) << endl;
 #endif
         // sleep(period);
     }
