@@ -16,8 +16,8 @@
 #include <string>
 #include <vector>
 #include <fstream>
-#include "shared_mem.hpp"
-#include "timer.hpp"
+#include <shared_memory.hpp>
+#include <timer.hpp>
 
 using namespace std;
 
@@ -40,9 +40,9 @@ public:
     void run();
 
 private:
-    string sensor_file_name = "";
-    int task_num = 0;
-    int period = 0;
+    string sensor_file_name;
+    int task_num;
+    int period;
     vector<float> sensorData;
 };
 
