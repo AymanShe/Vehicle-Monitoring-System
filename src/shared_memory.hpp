@@ -20,8 +20,8 @@ using namespace std;
 class SharedMemory
 {
 private:
-    const char *sh_mem = "/shm_mem";
-    const int sh_mem_size = 64;
+    static char *sh_mem;
+    static int sh_mem_size;
     int sh_mem_segment;
     int init();
 

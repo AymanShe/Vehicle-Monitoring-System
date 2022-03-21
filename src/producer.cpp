@@ -4,7 +4,8 @@
     Version: 1.0
     Author: Gabriel Karras
 */
-#include "producer.hpp"
+#include <producer.hpp>
+
 
 Producer::Producer(string sensor_file_name, int task_num, int period)
 {
@@ -20,17 +21,17 @@ Producer::~Producer()
 
 void Producer::setSensorFileName(string sensor_file_name)
 {
-    sensor_file_name = sensor_file_name;
+    this->sensor_file_name = sensor_file_name;
 }
 
 void Producer::setTaskNumber(int task_num)
 {
-    task_num = task_num;
+    this->task_num = task_num;
 }
 
 void Producer::setPeriod(int period)
 {
-    period = period;
+    this->period = period;
 }
 
 string Producer::getSensorFileName()
@@ -52,7 +53,7 @@ int Producer::getPeriod()
 bool Producer::loadSensorData()
 {
     ifstream fs;
-    fs.open(sensor_file_name);
+    fs.open(sensor_file_name.c_str());
 
     // Verify if we open .txt file
     if (!fs)
@@ -109,7 +110,7 @@ void Producer::run()
         /* TODO: must fetch time and period from shared memory*/
         // time = current_time()
         data = sensorData[time];
-        SharedMemory::write(task_num_addr, data);
+        shared_mem.write(task_num_addr, data);
 #ifdef DEBUG
         cout << "Time: " << time << endl;
         cout << "Data: " << SharedMemory::read(task_num_addr) << endl;

@@ -4,10 +4,16 @@
     Version: 1.0
     Author: Gabriel Karras
 */
-#include "shared_memory.hpp"
+#include <shared_memory.hpp>
+
+int SharedMemory::sh_mem_size;
+char *SharedMemory::sh_mem;
 
 SharedMemory::SharedMemory()
 {
+    sh_mem = "/shm_mem";
+    sh_mem_size = 64;
+
     init();
     cout << "Created shared memory!" << endl;
 }
@@ -36,7 +42,7 @@ int SharedMemory::init()
     ftruncate(sh_mem_segment, sh_mem_size);
 
     void *sh_mem_ptr;
-    sh_mem_ptr = mmap(0, SHM_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
+    sh_mem_ptr = mmap(0, sh_mem_size, PROT_READ | PROT_WRITE, MAP_SHARED, sh_mem_segment, 0);
     if (sh_mem_ptr == MAP_FAILED)
     {
         printf("In mmap() during init of shared memory!");
@@ -72,7 +78,7 @@ int SharedMemory::read(int addr)
 int SharedMemory::write(int addr, int data)
 {
     void *sh_mem_ptr;
-    sh_mem_ptr = mmap(0, SHM_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
+    sh_mem_ptr = mmap(0, sh_mem_size, PROT_READ | PROT_WRITE, MAP_SHARED, sh_mem_segment, 0);
     if (sh_mem_ptr == MAP_FAILED)
     {
         printf("In mmap() during write operation!");
