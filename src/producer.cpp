@@ -6,7 +6,6 @@
 */
 #include <producer.hpp>
 
-SharedMemory shared_mem;
 
 Producer::Producer(string sensor_file_name, int task_num, int period)
 {
@@ -22,17 +21,17 @@ Producer::~Producer()
 
 void Producer::setSensorFileName(string sensor_file_name)
 {
-    sensor_file_name = sensor_file_name;
+    this->sensor_file_name = sensor_file_name;
 }
 
 void Producer::setTaskNumber(int task_num)
 {
-    task_num = task_num;
+    this->task_num = task_num;
 }
 
 void Producer::setPeriod(int period)
 {
-    period = period;
+    this->period = period;
 }
 
 string Producer::getSensorFileName()

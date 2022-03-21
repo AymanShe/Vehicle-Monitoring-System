@@ -6,6 +6,9 @@
 */
 #include <shared_memory.hpp>
 
+int SharedMemory::sh_mem_size;
+char *SharedMemory::sh_mem;
+
 SharedMemory::SharedMemory()
 {
     sh_mem = "/shm_mem";

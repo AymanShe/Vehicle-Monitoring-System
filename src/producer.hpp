@@ -44,6 +44,7 @@ private:
     int task_num;
     int period;
     vector<float> sensorData;
+    SharedMemory shared_mem;
 };
 
 #endif // PRODUCER_HPP_
