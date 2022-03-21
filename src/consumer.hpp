@@ -12,8 +12,8 @@
 
 #include <iostream>
 #include <string>
-#include "shared_mem.hpp"
-#include "timer.hpp"
+#include <shared_memory.hpp>
+#include <timer.hpp>
 
 using namespace std;
 
