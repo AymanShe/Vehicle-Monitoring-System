@@ -12,8 +12,8 @@
 #include <cstdlib>
 #include <iostream>
 #include <thread>
-#include <producer.hpp>
-#include <consumer.hpp>
+#include "producer.hpp"
+#include "consumer.hpp"
 
 #define DEFAULT_PERIOD 5
 
@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
     Producer engine_speed("Engine_speed.txt", 1, DEFAULT_PERIOD);
     Producer engine_coolant_temperature("Engine_coolant_temperature.txt", 2, DEFAULT_PERIOD);
     Producer current_gear("Current_Gear.txt", 3, DEFAULT_PERIOD);
-    Producer vehicle_speed("Vehicle_Speed.txt", 4, DEFAULT_PERIOD);
+    Producer vehicle_speed("Vehicle_speed.txt", 4, DEFAULT_PERIOD);
 
     cout << "Vehicle Monitoring System Threads Started" << endl;
     thread th_fuel_consumption(&Producer::run, &fuel_consumption);

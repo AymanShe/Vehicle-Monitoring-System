@@ -2,6 +2,8 @@
 #define TIMER_HPP_
 
 #include <stdint.h>
+#include <ctime>
+
 
 void wait_next_activation(void);
 int start_periodic_timer(uint64_t offset, int period);

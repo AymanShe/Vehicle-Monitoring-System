@@ -4,7 +4,7 @@
     Version: 1.0
     Author: Gabriel Karras
 */
-#include <shared_memory.hpp>
+#include "shared_memory.hpp"
 
 int SharedMemory::sh_mem_size;
 char *SharedMemory::sh_mem;

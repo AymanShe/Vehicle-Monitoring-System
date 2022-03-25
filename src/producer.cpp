@@ -4,7 +4,7 @@
     Version: 1.0
     Author: Gabriel Karras
 */
-#include <producer.hpp>
+#include "producer.hpp"
 
 
 Producer::Producer(string sensor_file_name, int task_num, int period)
@@ -62,9 +62,9 @@ bool Producer::loadSensorData()
         exit(EXIT_FAILURE);
     }
 
-#ifdef DEBUG
+//#ifdef DEBUG
     cout << sensor_file_name << " is opened!" << endl;
-#endif
+//#endif
 
     // Load data to array
     float sensor_data;
@@ -108,13 +108,15 @@ void Producer::run()
     for (int i = 0; i < array_size; i += period)
     {
         /* TODO: must fetch time and period from shared memory*/
-        // time = current_time()
-        data = sensorData[time];
+
+//        time = get_time();
+//        std::cout << sensorData[1] <<std::endl;
+        data = sensorData[i];
         shared_mem.write(task_num_addr, data);
 #ifdef DEBUG
         cout << "Time: " << time << endl;
         cout << "Data: " << SharedMemory::read(task_num_addr) << endl;
 #endif
-        // sleep(period);
+        sleep(period);
     }
 }
