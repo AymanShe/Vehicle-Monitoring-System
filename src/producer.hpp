@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <thread>
 #include <chrono>
 #include <fstream>
 #include "shared_memory.hpp"

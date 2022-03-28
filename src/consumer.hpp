@@ -13,7 +13,7 @@
 using namespace std;
 
 void CLI();
-bool TaskUpdates();
-bool AllTaskDone();
+int TaskUpdates();
+int AllTaskDone();
 
 #endif // CONSUMER_HPP_

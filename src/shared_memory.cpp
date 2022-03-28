@@ -6,7 +6,7 @@
     Description: Shared memory interface for the Vehicle Monitoring system
     which allows read and writing to the shared memory
 */
-#include <shared_memory.hpp>
+#include "shared_memory.hpp"
 
 int SharedMemory::sh_mem_size;
 char *SharedMemory::sh_mem;

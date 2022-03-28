@@ -89,6 +89,8 @@ int TaskUpdates()
         shared_mem.write(TASK4 + UPDATE_STATUS_OFFSET, 0);
         return 1;
     }
+
+    return 0;
 }
 
 /*
