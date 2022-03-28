@@ -103,11 +103,12 @@ void Producer::run()
     int period = getPeriod();
     int array_size = sensorData.size() - 1;
 
+
     // Iterate through the vector by bounds of the task's period
     for (int time = 0; time < array_size; time += period)
     {
         shared_mem.write(task_num_addr, sensorData[time]);
-        shared_mem.write(task_num_addr + UPDATE_STATUS_OFFSET, UPDATED);
+//        shared_mem.write(task_num_addr + UPDATE_STATUS_OFFSET, UPDATED);
         std::this_thread::sleep_for(std::chrono::seconds(period));
     }
 

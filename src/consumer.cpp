@@ -26,7 +26,7 @@ void CLI()
     while(true)
     {
 
-        if(TaskUpdates())
+//        if(TaskUpdates())
         {
             cout << "Fuel Consumption(L/100Km): "     << shared_mem.read(TASK0) << endl;
             cout << "Engine Speed(RPM): "             << shared_mem.read(TASK1) << endl;
@@ -34,11 +34,11 @@ void CLI()
             cout << "Current Gear(Gear Level): "      << shared_mem.read(TASK3) << endl;
             cout << "Vehicle Speed(Mph): "            << shared_mem.read(TASK4) << endl;
         }
-
-        if(AllTaskDone())
-        {
-            break;
-        }
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+//        if(AllTaskDone())
+//        {
+//            break;
+//        }
     }
     cout << "End of Sensor Readings! Good Bye!" << endl;
 }
