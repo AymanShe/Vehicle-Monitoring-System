@@ -2,7 +2,9 @@
     File Name: shared_memory.cpp
     Created: 9 March 22
     Version: 1.0
-    Author: Gabriel Karras
+
+    Description: Shared memory interface for the Vehicle Monitoring system
+    which allows read and writing to the shared memory
 */
 #include <shared_memory.hpp>
 
@@ -11,6 +13,7 @@ char *SharedMemory::sh_mem;
 
 SharedMemory::SharedMemory()
 {
+    /* 'ISO C++11 doesn't allow conversion from string literal to char' can be ignored in QNX Momentics */
     sh_mem = "/shm_mem";
     sh_mem_size = 64;
 
