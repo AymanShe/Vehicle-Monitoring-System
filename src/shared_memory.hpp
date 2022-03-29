@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <sys/mman.h>
+#include <mutex>
 
 #define UPDATE_STATUS_OFFSET 5
 
@@ -25,6 +26,7 @@ private:
     static int sh_mem_size;
     int sh_mem_segment;
     int init();
+    std::mutex m;
 
 public:
     SharedMemory();

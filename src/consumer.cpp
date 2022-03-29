@@ -23,23 +23,35 @@ SharedMemory shared_mem;
 */
 void CLI()
 {
-    while(true)
-    {
+	std::string paramaters[]=
+	{
+			"Fuel Consumption(L/100Km)",
+			"Engine Speed(RPM)",
+			"Engine Coolant Temperature(C)",
+			"Current Gear(Gear Level)",
+			"Vehicle Speed(Mph)"
+	};
 
-//        if(TaskUpdates())
-        {
-            cout << "Fuel Consumption(L/100Km): "     << shared_mem.read(TASK0) << endl;
-            cout << "Engine Speed(RPM): "             << shared_mem.read(TASK1) << endl;
-            cout << "Engine Coolant Temperature(C): " << shared_mem.read(TASK2) << endl;
-            cout << "Current Gear(Gear Level): "      << shared_mem.read(TASK3) << endl;
-            cout << "Vehicle Speed(Mph): "            << shared_mem.read(TASK4) << endl;
-        }
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-//        if(AllTaskDone())
-//        {
-//            break;
-//        }
-    }
+	int values[5];
+	bool updated[5];
+	while (true) {
+
+		for(int i =0; i<5;++i){
+			int value = shared_mem.read(i);
+			if(value != -1){
+				values[i] = value;
+				updated[i] = true;
+			}
+		}
+
+		if(updated[0] && updated[1] && updated[2] && updated[3] && updated[4]){
+			cout << "***************" << endl;
+			for(int i =0; i<5;++i){
+				cout << paramaters[i] << values[i] << endl;
+				updated[i] = false;
+			}
+		}
+	}
     cout << "End of Sensor Readings! Good Bye!" << endl;
 }
 
