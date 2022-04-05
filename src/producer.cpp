@@ -3,10 +3,15 @@
     Created: 7 March 22
     Version: 1.0
     Author: Gabriel Karras
+
+    Description:
+    Configures sensor data such that it updates its dynamic array(vector)
+    with the current time t's sensor value(i.e.: V[t] = sensor_value)
+    This will facilitate the interface between the sensor data and the shared memory
 */
-#include <producer.hpp>
+#include "producer.hpp"
 
-
+/* Constructor */
 Producer::Producer(string sensor_file_name, int task_num, int period)
 {
     setSensorFileName(sensor_file_name);
@@ -15,41 +20,48 @@ Producer::Producer(string sensor_file_name, int task_num, int period)
     loadSensorData();
 }
 
+/* Empty Destructor */
 Producer::~Producer()
 {
 }
 
+/* Set file name for sensor data(*.txt) */
 void Producer::setSensorFileName(string sensor_file_name)
 {
     this->sensor_file_name = sensor_file_name;
 }
 
+/* Set task number */
 void Producer::setTaskNumber(int task_num)
 {
     this->task_num = task_num;
 }
 
+/* Set period for task */
 void Producer::setPeriod(int period)
 {
     this->period = period;
 }
 
+/* Get sensor file name(*.txt) */
 string Producer::getSensorFileName()
 {
     return sensor_file_name;
 }
 
+/* Get task number */
 int Producer::getTaskNumber()
 {
     return task_num;
 }
 
+/* Get task period */
 int Producer::getPeriod()
 {
     return period;
 }
 
-/* Loads sensor values from .txt file into an array */
+/* Loads sensor values from .txt file into a vector/dynamic array */
 bool Producer::loadSensorData()
 {
     ifstream fs;
@@ -61,10 +73,6 @@ bool Producer::loadSensorData()
         cerr << "Error during file opening: " << sensor_file_name << endl;
         exit(EXIT_FAILURE);
     }
-
-#ifdef DEBUG
-    cout << sensor_file_name << " is opened!" << endl;
-#endif
 
     // Load data to array
     float sensor_data;
@@ -78,10 +86,6 @@ bool Producer::loadSensorData()
     // We're able to completely read from the .txt file
     if (fs.eof())
     {
-#ifdef DEBUG
-        cout << sensor_file_name << " is loaded!" << endl;
-        cout << "Size of array: " << array_size << endl;
-#endif
         return true;
     }
 
@@ -95,26 +99,19 @@ bool Producer::loadSensorData()
 */
 void Producer::run()
 {
-    int time;
-    int data;
     int task_num_addr = getTaskNumber();
     int period = getPeriod();
     int array_size = sensorData.size() - 1;
 
-#ifdef DEBUG
-    cout << "Producer Thread " << getTaskNumber() << " running" << endl;
-#endif
 
-    for (int i = 0; i < array_size; i += period)
+    // Iterate through the vector by bounds of the task's period
+    for (int time = 0; time < array_size; time += period)
     {
-        /* TODO: must fetch time and period from shared memory*/
-        // time = current_time()
-        data = sensorData[time];
-        shared_mem.write(task_num_addr, data);
-#ifdef DEBUG
-        cout << "Time: " << time << endl;
-        cout << "Data: " << SharedMemory::read(task_num_addr) << endl;
-#endif
-        // sleep(period);
+        shared_mem.write(task_num_addr, sensorData[time]);
+//        shared_mem.write(task_num_addr + UPDATE_STATUS_OFFSET, UPDATED);
+        std::this_thread::sleep_for(std::chrono::seconds(period));
     }
+
+    // Let consumer know that task is done
+    shared_mem.write(task_num_addr + UPDATE_STATUS_OFFSET, TASK_DONE);
 }
